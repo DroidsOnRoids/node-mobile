@@ -1,16 +1,19 @@
 // @flow
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { StyleSheet, Text, ImageBackground, StatusBar } from 'react-native';
+import { StyleSheet, View, ImageBackground, StatusBar } from 'react-native';
 import { AppLoading, Font } from 'expo';
 import io from 'socket.io-client';
 
+// Presentational Components
 import Banner from './src/components/Banner';
 import Info from './src/containers/Info';
 
-import jobRunner from './src/jobRunner';
-import socketClient from './src/socketClient';
-import deviceHandle from './src/device';
+// Renderless Components
+import Device from './src/Device';
+import JobRunner from './src/JobRunner';
+import SocketClient from './src/SocketClient';
+
 import reduxStore from './src/shared/store/reduxStore';
 
 let store = {};
@@ -31,7 +34,7 @@ export default class App extends Component<Props, State> {
 
   componentWillMount() {
     this.loadAssets();
-    this.initModules();
+    this.initStore();
   }
 
   loadAssets = async () => {
@@ -44,17 +47,9 @@ export default class App extends Component<Props, State> {
     this.setState({ assetsLoaded: true });
   };
 
-  initModules = async () => {
+  initStore = async () => {
     store = await reduxStore();
     this.setState({ storeLoaded: true });
-
-    // get the device info
-    await deviceHandle.setInfo(store);
-
-    // setup socket client
-    socketClient(store);
-
-    //jobHandle = jobRunner(store);
   };
 
   render() {
@@ -65,6 +60,9 @@ export default class App extends Component<Props, State> {
             source={require('./assets/images/3_bg.jpg')}
             style={styles.container}
           >
+            <Device />
+            <JobRunner />
+            <SocketClient />
             <StatusBar barStyle="light-content" />
             <Banner />
             <Info />
