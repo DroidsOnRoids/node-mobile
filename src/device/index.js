@@ -2,37 +2,22 @@
 import * as IpSubnetCalculator from 'ip-subnet-calculator';
 import type { Store } from 'redux';
 
-const setDeviceNetworkInfo = async dispatch => {
-  // TODO get IP from multiple sources?
-  const ipResponse = await fetch('https://api.ipify.org');
-  const deviceIP = await ipResponse.text();
-  console.log('DEVICE IP:', deviceIP);
+import { updateDeviceInfo } from '../shared/actions/device';
 
-  const asnFetchURL = 'https://api.iptoasn.com/v1/as/ip/' + deviceIP;
-  const asnResponse = await fetch(asnFetchURL);
-  const asnData = await asnResponse.json();
-  console.log('ASN DATA:', asnData);
+const setDeviceLocationInfo = async () => {
+  const geo = navigator.geolocation;
 
-  const subnet = IpSubnetCalculator.calculate(
-    asnData.first_ip,
-    asnData.last_ip
-  );
-  console.log('SUBNET:', subnet);
+  const deviceLocationData = {
+    cidr: '1.2.3.4/12',
+    asn: '12335'
+  };
 
-  // TODO determine cidr from subnet info above
-
-  // TODO dispatch action to set values in store
-};
-
-const setDeviceLocationInfo = async dispatch => {
-  // navigator.geolocation;
+  return deviceLocationData;
 };
 
 const setInfo: (store: Store) => Promise<void> = async store => {
   const { dispatch } = store;
-
-  setDeviceNetworkInfo(dispatch);
-  setDeviceLocationInfo(dispatch);
+  const deviceLocationInfo = await setDeviceLocationInfo();
 };
 
 const deviceHandle = {
