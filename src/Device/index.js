@@ -8,9 +8,21 @@ type Props = {
   setLocation: any
 };
 
-class Device extends Component<Props> {
+type State = {
+  intervalId: any
+};
+
+class Device extends Component<Props, State> {
   componentDidMount() {
     this.props.setLocation();
+
+    // Update location every 30 seconds
+    const intervalId = setInterval(this.props.setLocation, 30000);
+    this.setState({ intervalId });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalId);
   }
 
   render() {
