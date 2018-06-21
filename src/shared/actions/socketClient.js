@@ -8,9 +8,7 @@ import {
   SOCKET_CHECK_IN,
   SOCKET_RECEIVE_JOB,
   SOCKET_JOB_RESULTS,
-  SOCKET_SERVER_ERROR,
-  SOCKET_PING,
-  SOCKET_PONG
+  SOCKET_SERVER_ERROR
 } from './constants';
 
 export const socketConnected: () => any = () => ({
@@ -52,12 +50,4 @@ export const minerSetId: (data: any) => any = ({ deviceId }) => ({
 export const serverError: (data: any) => any = ({ message }) => ({
   type: SOCKET_SERVER_ERROR,
   message
-});
-
-export const serverPing: (data: any) => any = data => ({
-  type: SOCKET_PING
-});
-
-export const serverPong: (data: any) => any = data => ({
-  type: SOCKET_PONG
 });

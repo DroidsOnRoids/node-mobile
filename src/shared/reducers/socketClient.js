@@ -8,23 +8,8 @@ import {
   SOCKET_CHECK_IN,
   SOCKET_RECEIVE_JOB,
   SOCKET_JOB_RESULTS,
-  SOCKET_SERVER_ERROR,
-  SOCKET_PING,
-  SOCKET_PONG
+  SOCKET_SERVER_ERROR
 } from '../actions/constants';
-
-// TODO Have some way of keeping track of pings & pongs
-//      and handling if we stop getting pongs
-const socketPingPong = (state: boolean = false, action: any) => {
-  switch (action.type) {
-    case SOCKET_PING:
-      return true;
-    case SOCKET_PONG:
-      return false;
-    default:
-      return state;
-  }
-};
 
 // ------------------------------------
 // Socket connection

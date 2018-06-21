@@ -6,9 +6,7 @@ import {
   receiveJob,
   submitJobSuccess,
   minerSetId,
-  serverError,
-  serverPing,
-  serverPong
+  serverError
 } from '../shared/actions/socketClient';
 
 import { getDevice } from '../shared/reducers';
@@ -23,7 +21,6 @@ const MINER_CHECK_IN = 'check-in';
 const RECEIVE_JOB = 'job-request';
 const SUBMIT_JOB = 'job-result';
 const SERVER_ACK = 'ack';
-const SERVER_PONG = 'pong';
 const SERVER_ERROR = 'error';
 
 const handleMessage = (data, dispatch) => {
