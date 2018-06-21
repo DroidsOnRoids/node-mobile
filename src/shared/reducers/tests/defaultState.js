@@ -18,7 +18,7 @@ const defaultState = {
     errorMessage: '',
     userSettings: {
       walletAddress: '',
-      wifiOnly: false
+      wifi_only: false
     }
   },
   socketClient: {

@@ -15,7 +15,7 @@ describe('device reducer', () => {
   it('should handle OPTIONS_SUCCESS', () => {
     const userSettingsData = {
       walletAddress: 'walletAdressdsufgkjsdfbsdkjf',
-      wifiOnly: true
+      wifi_only: true
     };
 
     const expectedState = {
@@ -40,7 +40,7 @@ describe('device reducer', () => {
         errorMessage: 'testing',
         userSettings: {
           walletAddress: '',
-          wifiOnly: false
+          wifi_only: false
         }
       }
     };

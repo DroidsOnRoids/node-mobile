@@ -3,7 +3,7 @@ export type PersistantStorage = {
   // settings
   options: {
     walletAddress: string,
-    wifiOnly: boolean
+    wifi_only: boolean
   },
   stats: {
     jobCompleteCount: number,
@@ -22,7 +22,7 @@ export type DynamicStorage = {
   },
   options: {
     walletAddress: string,
-    wifiOnly: boolean
+    wifi_only: boolean
   },
   stats: {
     jobCompleteCount: number,

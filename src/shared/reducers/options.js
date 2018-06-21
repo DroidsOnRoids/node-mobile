@@ -5,7 +5,7 @@ import { OPTIONS_SUCCESS, OPTIONS_FAILURE } from '../actions/constants';
 
 const initialOptions = {
   walletAddress: '',
-  wifiOnly: false
+  wifi_only: false
 };
 
 const userSettings = (state: any = initialOptions, action: any) => {

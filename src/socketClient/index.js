@@ -13,6 +13,8 @@ import {
 
 import { getDevice } from '../shared/reducers';
 
+import { has } from 'lodash';
+
 const socketURL =
   'ws://devCluster-default-jobsapi-3bfa-787513993.us-west-2.elb.amazonaws.com/ws';
 
@@ -25,11 +27,11 @@ const SERVER_PONG = 'pong';
 const SERVER_ERROR = 'error';
 
 const handleMessage = (data, dispatch) => {
-  const messageType = data.type;
+  const { type } = data;
 
   // TODO parse data
 
-  switch (messageType) {
+  switch (type) {
     case RECEIVE_JOB:
       dispatch(receiveJob(data));
 
@@ -37,7 +39,7 @@ const handleMessage = (data, dispatch) => {
       break;
     case SERVER_ACK:
       // TODO place 'miner_id' in some form of constant?
-      if ('miner_id' in data) {
+      if (has(data, 'miner_id')) {
         dispatch(minerSetId(data));
       } else {
         dispatch(submitJobSuccess(data));

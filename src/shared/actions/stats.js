@@ -5,7 +5,9 @@ export const incrementJobCount: () => any = () => ({
   type: STATS_INCREMENT_JOB_COUNT
 });
 
-export const setJobCount: (jobCount: number) => any = jobCount => ({
+export const setJobCount: (
+  jobCompleteCount: number
+) => any = jobCompleteCount => ({
   type: STATS_SET_JOB_COUNT,
-  jobCompleteCount: jobCount
+  jobCompleteCount
 });

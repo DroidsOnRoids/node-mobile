@@ -6,7 +6,7 @@ export const updateDeviceInfo: (data: any) => any = data => ({
   type: OPTIONS_SUCCESS,
   data: {
     walletAddress: data.walletAddress,
-    wifiOnly: data.wifiOnly
+    wifi_only: data.wifi_only
   }
 });
 

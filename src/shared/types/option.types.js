@@ -1,5 +1,5 @@
 // @flow
 export type UserSettings = {
   walletAddress: string,
-  wifiOnly: boolean
+  wifi_only: boolean
 };

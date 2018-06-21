@@ -21,32 +21,37 @@ export const socketDisconnected: () => any = () => ({
   type: SOCKET_DISCONNECTED
 });
 
-export const receiveJob: (data: any) => any = data => ({
+export const receiveJob: (data: any) => any = ({ jobData }) => ({
   type: SOCKET_RECEIVE_JOB,
-  jobData: data.jobData
+  jobData
 });
 
-export const submitJobSuccess: (data: any) => any = data => ({
+export const submitJobSuccess: (data: any) => any = ({ results }) => ({
   type: SOCKET_JOB_RESULTS,
-  results: data.results
+  results
 });
 
-export const minerCheckIn: (data: any) => any = data => ({
+export const minerCheckIn: (data: any) => any = ({
+  deviceId,
+  asn,
+  lat,
+  lng
+}) => ({
   type: SOCKET_CHECK_IN,
-  deviceId: data.deviceId,
-  asn: data.asn,
-  lat: data.lat,
-  lng: data.lng
+  deviceId,
+  asn,
+  lat,
+  lng
 });
 
-export const minerSetId: (data: any) => any = data => ({
+export const minerSetId: (data: any) => any = ({ deviceId }) => ({
   type: SOCKET_SET_MINER_ID,
-  deviceId: data.deviceId
+  deviceId
 });
 
-export const serverError: (data: any) => any = data => ({
+export const serverError: (data: any) => any = ({ message }) => ({
   type: SOCKET_SERVER_ERROR,
-  message: data.message
+  message
 });
 
 export const serverPing: (data: any) => any = data => ({
