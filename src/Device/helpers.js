@@ -3,7 +3,7 @@ import { has } from 'lodash';
 
 import { setDeviceLocation } from '../shared/actions/device';
 
-export const setLocationInfo = dispatch => {
+export const setLocationInfo: (dispatch: any) => any = dispatch => {
   return dispatch => {
     if (has(navigator, 'geolocation')) {
     }

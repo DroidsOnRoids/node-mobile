@@ -17,8 +17,6 @@ const reducers = combineReducers({
 export default reducers;
 
 export const getDevice = (state: any) => fromDevice.getInfo(state.device);
-export const getDeviceErrorMessage = (state: any) =>
-  fromDevice.getErrorMessage(state.device);
 
 export const getJob = (state: any) => fromJob.getJobSuccess(state.job);
 export const getJobErrorMessage = (state: any) =>
