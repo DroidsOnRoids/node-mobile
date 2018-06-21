@@ -2,8 +2,8 @@
 // Action constants
 
 // device related
-export const DEVICE_INFO_SUCCESS = 'DEVICE_INFO_SUCCESS';
-export const DEVICE_INFO_FAILURE = 'DEVICE_INFO_FAILURE';
+export const DEVICE_SET_LOCATION = 'DEVICE_SET_LOCATION';
+export const DEVICE_SET_MINER_ID = 'DEVICE_SET_MINER_ID';
 
 // job related actions
 export const JOB_PENDING = 'JOB_PENDING';

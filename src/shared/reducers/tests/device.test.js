@@ -12,49 +12,41 @@ describe('device reducer', () => {
     expect(reducers(undefined, {})).toEqual(initialState);
   });
 
-  it('should handle DEVICE_INFO_SUCCESS', () => {
+  it('should handle DEVICE_SET_LOCATION', () => {
     const deviceData = {
-      id: 'testID',
+      miner_id: '',
       lat: '-37.0',
-      lng: '37.0',
-      ip: '1.2.3.4',
-      asn: '100.200.0.0'
+      lng: '37.0'
     };
 
     const expectedState = {
       ...defaultState,
       device: {
-        errorMessage: '',
         info: deviceData
       }
     };
 
     const successAction = {
-      type: actions.DEVICE_INFO_SUCCESS,
+      type: actions.DEVICE_SET_LOCATION,
       data: deviceData
     };
     expect(reducers({}, successAction)).toEqual(expectedState);
   });
 
-  it('should handle DEVICE_INFO_FAILURE', () => {
+  it('should handle DEVICE_SET_MINER_ID', () => {
     const expectedState = {
       ...defaultState,
       device: {
-        errorMessage: 'testing',
         info: {
-          asn: '',
-          id: '',
-          ip: '',
-          lat: '',
-          lng: ''
+          miner_id: 'miner-id-testing'
         }
       }
     };
 
-    const failAction = {
-      type: actions.DEVICE_INFO_FAILURE,
-      message: 'testing'
+    const successAction = {
+      type: actions.DEVICE_SET_MINER_ID,
+      miner_id: 'miner-id-testing'
     };
-    expect(reducers({}, failAction)).toEqual(expectedState);
+    expect(reducers({}, successAction)).toEqual(expectedState);
   });
 });

@@ -1,12 +1,7 @@
 const defaultState = {
   device: {
-    errorMessage: '',
     info: {
-      asn: '',
-      id: '',
-      ip: '',
-      lat: '',
-      lng: ''
+      miner_id: ''
     }
   },
   job: {
