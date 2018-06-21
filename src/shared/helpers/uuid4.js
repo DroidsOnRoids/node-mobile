@@ -14,4 +14,4 @@ const uuid4 = () => {
   return uuid;
 };
 
-export default uuid;
+export default uuid4;
