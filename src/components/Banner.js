@@ -1,10 +1,10 @@
 // @flow
-import React from 'react';
+import React, { Component } from 'react';
 import { View, Image } from 'react-native';
 
 type Props = {};
 
-class Banner extends React.Component<Props> {
+class Banner extends Component<Props> {
   render() {
     return (
       <View>

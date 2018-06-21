@@ -1,5 +1,5 @@
 // @flow
-import * as React from 'react';
+import React, { Component } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -12,7 +12,7 @@ type Props = {
   jobStatus: boolean
 };
 
-class Info extends React.Component<Props> {
+class Info extends Component<Props> {
   render() {
     const { jobCompleteCount, jobStatus } = this.props;
     const jobActive = jobStatus ? 'Active' : 'Inactive';
