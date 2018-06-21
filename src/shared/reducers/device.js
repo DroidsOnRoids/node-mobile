@@ -4,11 +4,11 @@ import { combineReducers } from 'redux';
 import { DEVICE_INFO_SUCCESS, DEVICE_INFO_FAILURE } from '../actions/constants';
 
 const initialInfo = {
+  miner_id: '',
+  cidr: '',
   asn: '',
-  id: '',
-  ip: '',
   lat: '',
-  lng: ''
+  lon: ''
 };
 
 const info = (state: any = initialInfo, action: any) => {
