@@ -1,7 +1,8 @@
 const defaultState = {
   device: {
     info: {
-      miner_id: ''
+      miner_id: '',
+      device_type: ''
     }
   },
   job: {

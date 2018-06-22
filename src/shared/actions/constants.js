@@ -4,7 +4,7 @@
 // device related
 export const DEVICE_SET_LOCATION = 'DEVICE_SET_LOCATION';
 export const DEVICE_SET_MINER_ID = 'DEVICE_SET_MINER_ID';
-
+export const DEVICE_SET_DEVICE_TYPE = 'DEVICE_SET_DEVICE_TYPE';
 // job related actions
 export const JOB_PENDING = 'JOB_PENDING';
 export const JOB_SUCCESS = 'JOB_SUCCESS';

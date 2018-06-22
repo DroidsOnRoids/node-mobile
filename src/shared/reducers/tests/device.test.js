@@ -14,6 +14,7 @@ describe('device reducer', () => {
 
   it('should handle DEVICE_SET_LOCATION', () => {
     const deviceData = {
+      device_type: '',
       miner_id: '',
       lat: '-37.0',
       lng: '37.0'
@@ -38,7 +39,8 @@ describe('device reducer', () => {
       ...defaultState,
       device: {
         info: {
-          miner_id: 'miner-id-testing'
+          miner_id: 'miner-id-testing',
+          device_type: ''
         }
       }
     };
@@ -46,6 +48,24 @@ describe('device reducer', () => {
     const successAction = {
       type: actions.DEVICE_SET_MINER_ID,
       miner_id: 'miner-id-testing'
+    };
+    expect(reducers({}, successAction)).toEqual(expectedState);
+  });
+
+  it('should handle DEVICE_SET_DEVICE_TYPE', () => {
+    const expectedState = {
+      ...defaultState,
+      device: {
+        info: {
+          miner_id: '',
+          device_type: 'ios'
+        }
+      }
+    };
+
+    const successAction = {
+      type: actions.DEVICE_SET_DEVICE_TYPE,
+      device_type: 'ios'
     };
     expect(reducers({}, successAction)).toEqual(expectedState);
   });
