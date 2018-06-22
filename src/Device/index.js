@@ -6,7 +6,8 @@ import { setLocationInfo, setDeviceType } from './helpers';
 
 type Props = {
   setLocation: any,
-  setDeviceDeviceType: any
+  setDeviceDeviceType: any,
+  device: any
 };
 
 type State = {

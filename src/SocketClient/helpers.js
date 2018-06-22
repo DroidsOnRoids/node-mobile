@@ -28,7 +28,10 @@ export const createCheckInMsg = () => {
   };
 };
 
-export const handleMessage = (data, dispatch) => {
+export const handleMessage: (data: any, dispatch: any) => void = (
+  data,
+  dispatch
+) => {
   const { type } = data;
 
   switch (type) {
