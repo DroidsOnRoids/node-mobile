@@ -12,6 +12,19 @@ type Status = 'critical' | 'degraded' | 'ok' | 'unknown';
 
 type Device = 'android' | 'ios' | 'chrome' | 'firefox' | 'desktop';
 
+type Methods =
+  | 'GET'
+  | 'POST'
+  | 'PUT'
+  | 'PATCH'
+  | 'HEAD'
+  | 'DELETE'
+  | 'CONNECT'
+  | 'OPTIONS'
+  | 'TRACE'
+  | 'TRACEROUTE'
+  | 'PING';
+
 type ASN = {
   value: string, // AS Number
   amount?: number // amount of nodes to assign with this ASN
@@ -33,14 +46,14 @@ type GeoData = {
 type Filters = {
   amount?: number, // amount of nodes to perform job
   ASN?: ASN[],
-  devices?: Device[], // hardware type of nodes to perform job
+  devices?: Device[] // hardware type of nodes to perform job
 };
 
 export type JobRequest = {
-  name: string,
-  type: string,
-  filters: Filters,
+  id: string,
+  type: 'job-request',
   protocol: string,
+  method: Methods,
   headers: Headers,
   payload: string,
   endpoint_address: string,
@@ -50,23 +63,11 @@ export type JobRequest = {
   degraded_after: number,
   critical_after: number,
   critical_responses: CriticalResponses,
-  uuid: string,
-  customer_uuid?: string,
-  created_at: number
-};
-
-export type JobRequestMessage = {
-  topic: string,
-  value: string
-  offset: number,
-  partition: number,
-  highWaterOffset: number,
-  key: ?string,
-  timestamp: Date
+  job_uuid: string
 };
 
 export type JobResult = {
-  result_uuid: string, // @TODO: subtype uuids as opaque data types
+  result_uuid: string,
   customer_uuid: string,
   miner_id: string,
   job_uuid: string,

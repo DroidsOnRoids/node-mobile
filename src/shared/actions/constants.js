@@ -17,6 +17,7 @@ export const OPTIONS_FAILURE = 'OPTIONS_FAILURE';
 // socket client state
 export const SOCKET_CONNECTED = 'SOCKET_CONNECTED';
 export const SOCKET_DISCONNECTED = 'SOCKET_DISCONNECTED';
+
 // messages via socket client
 export const SOCKET_SET_MINER_ID = 'SOCKET_SET_MINER_ID';
 export const SOCKET_CHECK_IN = 'SOCKET_CHECK_IN';
@@ -27,3 +28,11 @@ export const SOCKET_SERVER_ERROR = 'SOCKET_SERVER_ERROR';
 // options
 export const STATS_SET_JOB_COUNT = 'STATS_SET_JOB_COUNT';
 export const STATS_INCREMENT_JOB_COUNT = 'STATS_INCREMENT_JOB_COUNT';
+
+// socket api dictionary
+export const MINER_CHECK_IN = 'check-in';
+export const RECEIVE_JOB = 'job-request';
+export const SUBMIT_JOB = 'job-result';
+export const SERVER_ACK = 'ack';
+export const SERVER_PONG = 'pong';
+export const SERVER_ERROR = 'error';

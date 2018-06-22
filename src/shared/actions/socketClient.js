@@ -1,5 +1,6 @@
 // @flow
-// TODO update flow typing
+import type { JobRequest } from '../../types';
+import type { Action, Thunk } from './types';
 
 import {
   SOCKET_CONNECTED,
@@ -19,10 +20,9 @@ export const socketDisconnected: () => any = () => ({
   type: SOCKET_DISCONNECTED
 });
 
-export const receiveJob: (data: any) => any = ({ jobData }) => ({
-  type: SOCKET_RECEIVE_JOB,
-  jobData
-});
+export const receiveJob = ({ jobData }): Thunk => {
+  const { method, protocol } = jobData;
+};
 
 export const submitJobSuccess: (data: any) => any = ({ results }) => ({
   type: SOCKET_JOB_RESULTS,
