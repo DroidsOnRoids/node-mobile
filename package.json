@@ -22,6 +22,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "expo": "^27.0.2",
     "ip-subnet-calculator": "^1.1.8",
     "lodash": "^4.17.10",
