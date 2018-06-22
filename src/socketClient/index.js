@@ -11,20 +11,21 @@ import {
   serverPong
 } from '../shared/actions/socketClient';
 
+import {
+  MINER_CHECK_IN,
+  RECEIVE_JOB,
+  SUBMIT_JOB,
+  SERVER_ACK,
+  SERVER_PONG,
+  SERVER_ERROR
+} from './constants';
+
 import { getDevice } from '../shared/reducers';
 
 import { has } from 'lodash';
 
 const socketURL =
   'ws://devCluster-default-jobsapi-3bfa-787513993.us-west-2.elb.amazonaws.com/ws';
-
-// socket message types
-const MINER_CHECK_IN = 'check-in';
-const RECEIVE_JOB = 'job-request';
-const SUBMIT_JOB = 'job-result';
-const SERVER_ACK = 'ack';
-const SERVER_PONG = 'pong';
-const SERVER_ERROR = 'error';
 
 const handleMessage = (data, dispatch) => {
   const { type } = data;
@@ -35,10 +36,8 @@ const handleMessage = (data, dispatch) => {
     case RECEIVE_JOB:
       dispatch(receiveJob(data));
 
-      // respond with ack
       break;
     case SERVER_ACK:
-      // TODO place 'miner_id' in some form of constant?
       if (has(data, 'miner_id')) {
         dispatch(minerSetId(data));
       } else {
