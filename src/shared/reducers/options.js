@@ -4,7 +4,7 @@ import { combineReducers } from 'redux';
 import { OPTIONS_SUCCESS, OPTIONS_FAILURE } from '../actions/constants';
 
 const initialOptions = {
-  walletAddress: '',
+  wallet: '',
   wifi_only: false
 };
 

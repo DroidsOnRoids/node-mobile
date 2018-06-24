@@ -13,7 +13,7 @@ const defaultState = {
   options: {
     errorMessage: '',
     userSettings: {
-      walletAddress: '',
+      wallet: '',
       wifi_only: false
     }
   },

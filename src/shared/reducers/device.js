@@ -12,7 +12,7 @@ const initialInfo = {
   device_type: ''
 };
 
-const info = (state: any = initialInfo, action: any) => {
+const info = (state: Object = initialInfo, action: Object) => {
   switch (action.type) {
     case DEVICE_SET_LOCATION:
       const { lat, lng } = action.data;
@@ -44,4 +44,4 @@ const device = combineReducers({
 
 export default device;
 
-export const getInfo = (state: any) => state.info;
+export const getInfo = (state: Object) => state.info;
