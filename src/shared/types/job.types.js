@@ -1,27 +1,35 @@
-type Device = 'android' | 'ios' | 'chrome' | 'firefox' | 'desktop';
+// @flow
+type DeviceOS = 'android' | 'ios' | 'chrome' | 'firefox' | 'desktop';
 
-type CheckIn = {
-  id: string,
-  type: 'check-in',
-  miner_id?: string,
-  cidr?: string,
-  asn?: string,
-  lat?: number,
-  lon?: number,
-  wallet: string,
-  device_type: Device
+type Status = 'critical' | 'degraded' | 'ok' | 'unknown';
+
+type Methods =
+  | 'GET'
+  | 'POST'
+  | 'PUT'
+  | 'PATCH'
+  | 'HEAD'
+  | 'DELETE'
+  | 'CONNECT'
+  | 'OPTIONS'
+  | 'TRACE'
+  | 'TRACEROUTE'
+  | 'PING';
+
+type ASN = {
+  value: string, // AS Number
+  amount?: number // amount of nodes to assign with this ASN
 };
 
-type Ack = {
-  id: string,
-  type: 'ack',
-  miner_id?: string
-};
-
-type Error = {
-  id: string,
-  type: 'error',
-  description: string
+type GeoData = {
+  coords: {
+    lat: number,
+    lng: number,
+    bounds?: number // used for filtration later in roadmap. miners don't report this.
+  },
+  city?: string,
+  country?: string,
+  [string]: string // this covers any other arbitrary address microdata
 };
 
 type Headers = {
@@ -33,11 +41,11 @@ type CriticalResponses = {
   body_contains: string
 };
 
-export type MinerJobRequest = {
+export type JobRequest = {
   id: string,
   type: 'job-request',
-  job_type: string,
   protocol: string,
+  method: Methods,
   headers: Headers,
   payload: string,
   endpoint_address: string,
@@ -50,12 +58,18 @@ export type MinerJobRequest = {
   job_uuid: string
 };
 
-type Status = 'critical' | 'degraded' | 'ok' | 'unknown';
-
 export type JobResult = {
-  id: string,
-  type: 'job-result',
+  result_uuid: string,
+  customer_uuid: string,
+  miner_id: string,
   job_uuid: string,
+  geo: GeoData,
+  asn: number,
+  ip_range: string,
+  received_on: number,
   status: Status,
-  response_time: number
+  response_time: number,
+  response_body: Object
 };
+
+export type Emit = (io: Function, msg: JobRequest) => void;

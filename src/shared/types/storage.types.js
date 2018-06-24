@@ -29,3 +29,6 @@ export type DynamicStorage = {
     pathMinedCount: number
   }
 };
+
+// @TODO: properly type the redux store
+export type State = Object;

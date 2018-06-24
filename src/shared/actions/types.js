@@ -6,13 +6,11 @@ import {
   SOCKET_CHECK_IN,
   SOCKET_RECEIVE_JOB,
   SOCKET_JOB_RESULTS,
-  SOCKET_SERVER_ERROR,
-  SOCKET_PING,
-  SOCKET_PONG
+  SOCKET_SERVER_ERROR
 } from './constants';
 
 import type { Dispatch } from 'redux';
-import type { State } from '../reducers/types';
+import type { State } from '../types/storage.types';
 
 export type Action =
   | {|
@@ -35,12 +33,6 @@ export type Action =
     |}
   | {|
       type: SOCKET_SERVER_ERROR
-    |}
-  | {|
-      type: SOCKET_PING
-    |}
-  | {|
-      type: SOCKET_PONG
     |};
 
 export type Thunk = (dispatch: Dispatch<Action>, getState: () => State) => any;

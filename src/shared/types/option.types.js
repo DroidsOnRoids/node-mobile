@@ -1,5 +1,5 @@
 // @flow
-export type UserSettings = {
+export type UserOptions = {
   walletAddress: string,
   wifi_only: boolean
 };
