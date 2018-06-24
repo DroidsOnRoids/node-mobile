@@ -1,10 +1,10 @@
 // @flow
-import type { JobRequest } from '../../types';
+import type { JobRequest } from '../types/job.types';
 import type { Action, Thunk } from './types';
 
 import axios from 'axios';
 
-export const get = (data: JobRequest): Thunk => {
+export const get: (data: JobRequest) => Thunk = data => {
   const {
     endpoint_address,
     endpoint_port = '8080',
@@ -17,8 +17,8 @@ export const get = (data: JobRequest): Thunk => {
     .catch(console.error);
 };
 
-export const post = (data: JobRequest): Thunk => {};
+export const post: (data: JobRequest) => Thunk = data => {};
 
-export const traceroute = (data: JobRequest): Thunk => {};
+export const traceroute: (data: JobRequest) => Thunk = data => {};
 
-export const ping = (data: JobRequest): Thunk => {};
+export const ping: (data: JobRequest) => Thunk = data => {};
