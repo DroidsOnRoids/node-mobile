@@ -16,7 +16,11 @@ describe('job reducer', () => {
     const jobData = {
       errorMessage: '',
       jobPending: true,
-      jobSuccess: {}
+      jobSuccess: {
+        job_uuid: '',
+        status: '',
+        response_time: -1
+      }
     };
 
     const expectedState = {
@@ -35,16 +39,9 @@ describe('job reducer', () => {
       errorMessage: '',
       jobPending: false,
       jobSuccess: {
-        result_uuid: '1234567',
-        customer_uuid: '1234567',
-        miner_id: '123456745678',
-        job_uuid: '1234567jhsdagjhadg',
-        geo: 'Testing',
-        asn: 12345,
-        ip_range: '12.12.12.12',
-        received_on: 1234567890,
-        status: 'ok',
-        response_time: 12345
+        job_uuid: '123234234235235',
+        status: 'critical',
+        response_time: 5000
       }
     };
 
@@ -55,16 +52,11 @@ describe('job reducer', () => {
 
     const successAction = {
       type: actions.JOB_SUCCESS,
-      result_uuid: '1234567',
-      customer_uuid: '1234567',
-      miner_id: '123456745678',
-      job_uuid: '1234567jhsdagjhadg',
-      geo: 'Testing',
-      asn: 12345,
-      ip_range: '12.12.12.12',
-      received_on: 1234567890,
-      status: 'ok',
-      response_time: 12345
+      job_result: {
+        job_uuid: '123234234235235',
+        status: 'critical',
+        response_time: 5000
+      }
     };
 
     expect(reducers({}, successAction)).toEqual(expectedState);
@@ -74,7 +66,11 @@ describe('job reducer', () => {
     const jobData = {
       errorMessage: 'job test fail message',
       jobPending: false,
-      jobSuccess: {}
+      jobSuccess: {
+        job_uuid: '',
+        status: '',
+        response_time: -1
+      }
     };
 
     const expectedState = {
