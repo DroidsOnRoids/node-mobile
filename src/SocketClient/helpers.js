@@ -24,13 +24,22 @@ export const createCheckInMsg: (
   device_type: DeviceOS,
   wallet: string
 ) => CheckIn = (miner_id, device_type, wallet) => {
-  return {
-    type: MINER_CHECK_IN,
-    id: uuid4(),
-    miner_id,
-    wallet,
-    device_type
-  };
+  if (miner_id !== '') {
+    return {
+      type: MINER_CHECK_IN,
+      id: uuid4(),
+      miner_id,
+      device_type,
+      wallet
+    };
+  } else {
+    return {
+      type: MINER_CHECK_IN,
+      id: uuid4(),
+      device_type,
+      wallet
+    };
+  }
 };
 
 export const createAckMsg: (msg_id: string) => Ack = msg_id => {

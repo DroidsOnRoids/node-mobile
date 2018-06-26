@@ -1,5 +1,5 @@
 // @flow
-import type { JobRequest } from '../../types';
+import type { MinerJobRequest } from '../../shared/types/job.types';
 import type { Action, Thunk } from './types';
 
 import {
@@ -20,9 +20,10 @@ export const socketDisconnected: () => any = () => ({
   type: SOCKET_DISCONNECTED
 });
 
-export const receiveJob = ({ jobData }): Thunk => {
-  const { method, protocol } = jobData;
-};
+export const receiveJob: (jobData: MinerJobRequest) => any = jobData => ({
+  type: SOCKET_RECEIVE_JOB,
+  jobData
+});
 
 export const submitJobSuccess: (data: any) => any = ({ results }) => ({
   type: SOCKET_JOB_RESULTS,
@@ -42,12 +43,12 @@ export const minerCheckIn: (data: any) => any = ({
   lng
 });
 
-export const minerSetId: (data: any) => any = ({ deviceId }) => ({
+export const minerSetId: (data: any) => any = ({ miner_id }) => ({
   type: SOCKET_SET_MINER_ID,
-  deviceId
+  miner_id
 });
 
-export const serverError: (data: any) => any = ({ message }) => ({
+export const serverError: (data: any) => any = ({ description }) => ({
   type: SOCKET_SERVER_ERROR,
-  message
+  description
 });
