@@ -17,12 +17,8 @@ type State = {
 class Device extends Component<Props, State> {
   componentDidMount() {
     this.props.setDeviceDeviceType();
-
     this.props.setLocation();
 
-    setTimeout(() => {
-      console.log(this.props.device);
-    }, 4000);
     // Update location every 30 seconds
     const intervalId = setInterval(this.props.setLocation, 30000);
     this.setState({ intervalId });

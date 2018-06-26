@@ -2,6 +2,8 @@ import { AsyncStorage } from 'react-native';
 
 const PATH_STORAGE_REF = 'PATH_STORAGE';
 
+//AsyncStorage.setItem(PATH_STORAGE_REF, '');
+
 const setPersistStorage = async (key: string, value: string) => {
   const storeString = await AsyncStorage.getItem(PATH_STORAGE_REF);
 
