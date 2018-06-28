@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { StyleSheet, View, ImageBackground, StatusBar } from 'react-native';
 import { AppLoading, Font } from 'expo';
-import io from 'socket.io-client';
 
 // Presentational Components
 import Banner from './src/components/Banner';
@@ -15,6 +14,8 @@ import JobRunner from './src/JobRunner';
 import SocketClient from './src/SocketClient';
 
 import reduxStore from './src/shared/store/reduxStore';
+
+const socketURL = 'ws://localhost:3000/ws';
 
 let store = {};
 let socketHandle = {};
@@ -62,7 +63,7 @@ export default class App extends Component<Props, State> {
           >
             <Device />
             <JobRunner />
-            <SocketClient />
+            <SocketClient socketUrl={socketURL} />
             <StatusBar barStyle="light-content" />
             <Banner />
             <Info />

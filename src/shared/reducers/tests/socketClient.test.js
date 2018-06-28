@@ -108,8 +108,9 @@ describe('socketClient reducer', () => {
     const jobData = {
       id: '213124321542354',
       type: 'job-request',
-      job_type: 'http',
-      protocol: 'get',
+      job_type: 'http-uptime-check',
+      protocol: 'http',
+      method: 'GET',
       headers: {
         'x-type': 'blablablaba'
       },
@@ -139,7 +140,7 @@ describe('socketClient reducer', () => {
 
     const socketAction = {
       type: actions.SOCKET_RECEIVE_JOB,
-      job: jobData
+      jobData
     };
     expect(reducers({}, socketAction)).toEqual(expectedState);
   });

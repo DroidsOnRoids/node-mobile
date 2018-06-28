@@ -34,6 +34,7 @@ const defaultState = {
       type: '',
       job_type: '',
       protocol: '',
+      method: '',
       headers: {},
       payload: '',
       endpoint_address: '',

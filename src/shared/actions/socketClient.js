@@ -25,7 +25,7 @@ export const receiveJob: (jobData: MinerJobRequest) => any = jobData => ({
   jobData
 });
 
-export const submitJobSuccess: (data: any) => any = ({ results }) => ({
+export const submitJobSuccess: (data: any) => any = results => ({
   type: SOCKET_JOB_RESULTS,
   results
 });

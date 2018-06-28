@@ -25,8 +25,6 @@ import {
 
 import { createCheckInMsg, createAckMsg } from './helpers';
 
-// TODO environment variable.
-const socketURL = 'ws://localhost:3000/ws';
 let socket;
 
 type Props = {
@@ -36,6 +34,7 @@ type Props = {
   submitJobSuccess: any,
   minerSetId: any,
   serverError: any,
+  socketUrl: string,
 
   device: Object,
   options: Object,
@@ -54,7 +53,7 @@ class SocketClient extends Component<Props, State> {
   };
 
   componentDidMount() {
-    socket = new WebSocket(socketURL);
+    socket = new WebSocket(this.props.socketUrl);
     this.setupListeners();
     this.setupCheckInPing();
   }
@@ -95,7 +94,7 @@ class SocketClient extends Component<Props, State> {
   setupNewConnection = () => {
     setTimeout(() => {
       console.log('attempting reconnect');
-      socket = new WebSocket(socketURL);
+      socket = new WebSocket(this.props.socketUrl);
       this.setupListeners();
     }, 10000);
   };
