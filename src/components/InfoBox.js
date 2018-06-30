@@ -4,7 +4,7 @@ import { StyleSheet, View, Text } from 'react-native';
 
 const styles = StyleSheet.create({
   text: {
-    fontFamily: 'exo-regular',
+    fontFamily: 'Exo-Regular',
     color: 'white',
     fontSize: 20
   },

@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { StyleSheet, View, ImageBackground, StatusBar } from 'react-native';
-import { AppLoading, Font } from 'expo';
 
 // Presentational Components
 import Banner from './src/components/Banner';
@@ -15,7 +14,8 @@ import SocketClient from './src/SocketClient';
 
 import reduxStore from './src/shared/store/reduxStore';
 
-const socketURL = 'ws://localhost:3000/ws';
+// 10.0.2.2 instead of localhost because of being in a simulator
+const socketURL = 'ws://10.0.2.2:3000/ws';
 
 let store = {};
 let socketHandle = {};
@@ -23,30 +23,17 @@ let socketHandle = {};
 type Props = {};
 
 type State = {
-  assetsLoaded: boolean,
   storeLoaded: boolean
 };
 
 export default class App extends Component<Props, State> {
   state = {
-    assetsLoaded: false,
     storeLoaded: false
   };
 
   componentWillMount() {
-    this.loadAssets();
     this.initStore();
   }
-
-  loadAssets = async () => {
-    await Font.loadAsync({
-      'exo-light': require('./assets/fonts/Exo-Light.ttf'),
-      'exo-medium': require('./assets/fonts/Exo-Medium.ttf'),
-      'exo-regular': require('./assets/fonts/Exo-Regular.ttf'),
-      'exo-semibold': require('./assets/fonts/Exo-SemiBold.ttf')
-    });
-    this.setState({ assetsLoaded: true });
-  };
 
   initStore = async () => {
     store = await reduxStore();
@@ -54,7 +41,7 @@ export default class App extends Component<Props, State> {
   };
 
   render() {
-    if (this.state.assetsLoaded && this.state.storeLoaded) {
+    if (this.state.storeLoaded) {
       return (
         <Provider store={store}>
           <ImageBackground
@@ -71,7 +58,8 @@ export default class App extends Component<Props, State> {
         </Provider>
       );
     } else {
-      return <AppLoading />;
+      // a loading screen would be a nice addition
+      return <View />;
     }
   }
 }

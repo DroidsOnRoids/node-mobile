@@ -5,25 +5,35 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-flow": "^6.23.0",
+    "babel-preset-react-native-stage-0": "^1.0.1",
+    "cavy": "^0.5.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "flow-bin": "^0.73.0",
-    "jest-expo": "~27.0.0",
-    "react-native-scripts": "1.14.0",
-    "react-test-renderer": "16.3.1"
+    "jest": "^23.2.0",
+    "jest-react-native": "^18.0.0",
+    "mock-socket": "^7.1.0",
+    "react-native-mock-render": "^0.0.26",
+    "react-test-renderer": "16.3.1",
+    "redux-mock-store": "^1.5.3",
+    "sinon": "^6.0.1"
   },
-  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
-    "start": "react-native-scripts start",
-    "eject": "react-native-scripts eject",
-    "android": "react-native-scripts android",
-    "ios": "react-native-scripts ios",
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
     "test": "jest"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "react-native"
+  },
+  "rnpm": {
+    "assets": [
+	     "./assets/fonts/"
+    ]
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "expo": "^27.0.2",
     "lodash": "^4.17.10",
     "react": "16.3.1",
     "react-native": "~0.55.2",
