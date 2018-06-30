@@ -29,7 +29,7 @@
   },
   "rnpm": {
     "assets": [
-	     "./assets/fonts/"
+      "./assets/fonts/"
     ]
   },
   "dependencies": {
@@ -38,6 +38,8 @@
     "react": "16.3.1",
     "react-native": "~0.55.2",
     "react-native-config": "^0.11.5",
+    "react-native-tcp": "^3.3.0",
+    "react-native-udp": "^2.3.1",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
