@@ -23,7 +23,7 @@ import {
   serverError
 } from '../shared/actions/socketClient';
 
-import { createCheckInMsg, createAckMsg } from './helpers';
+import { createCheckInMsg, createAckMsg, createJobResultMsg } from './helpers';
 
 let socket;
 
@@ -58,12 +58,20 @@ class SocketClient extends Component<Props, State> {
     this.setupCheckInPing();
   }
 
-  componentDidUpdate(prevState) {
+  componentDidUpdate(prevProps) {
     if (has(this.props.device, 'info') && !this.state.allowCheckIn) {
       this.setState({ allowCheckIn: true });
     }
 
-    // also handle job result updates
+    if (this.props.job !== prevProps.job) {
+      if (
+        this.props.job.jobPending === false &&
+        this.props.job.errorMessage === ''
+      ) {
+        const jobResult = createJobResultMsg(this.props.job.jobSuccess);
+        socket.send(JSON.stringify(jobResult));
+      }
+    }
   }
 
   componentWillUnmount() {
@@ -108,9 +116,9 @@ class SocketClient extends Component<Props, State> {
 
     // send first check in message
     this.sendCheckin();
-
-    // 00000000000000000000000000000000000000000000000000000
-    // create a dummy job
+    //
+    // // 00000000000000000000000000000000000000000000000000000
+    // // create a dummy job
     // setTimeout(() => {
     //   const data = {
     //     id: '213124321542354',
@@ -166,7 +174,7 @@ class SocketClient extends Component<Props, State> {
           persistentStorage.setMinerId(data.miner_id);
         }
         // server ack to recurring miner check-in message
-        this.sendAck(data.id);
+        // this.sendAck(data.id);
         break;
       case SERVER_ERROR:
         this.props.serverError(data);

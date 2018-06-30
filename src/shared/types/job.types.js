@@ -1,8 +1,6 @@
 // @flow
 type DeviceOS = 'android' | 'ios' | 'chrome' | 'firefox' | 'desktop';
 
-type Status = 'critical' | 'degraded' | 'ok' | 'unknown' | '';
-
 type Methods =
   | 'GET'
   | 'POST'
@@ -24,6 +22,8 @@ type CriticalResponses = {
   header_status: string,
   body_contains: string
 };
+
+export type Status = 'critical' | 'degraded' | 'ok' | 'unknown' | '';
 
 export type MinerJobRequest = {
   id: string,

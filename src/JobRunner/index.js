@@ -4,11 +4,27 @@ import { connect } from 'react-redux';
 
 import type { MinerJobRequest } from '../shared/types/job.types';
 
-import { httpGet, httpPost } from './httpRunners';
+import {
+  httpGet,
+  httpPost,
+  httpPut,
+  httpHead,
+  httpDelete,
+  httpConnect,
+  httpOptions,
+  httpTrace
+} from './httpRunners';
 
 type Props = {
   httpGet: Function,
   httpPost: Function,
+  httpPut: Function,
+  httpPatch: Function,
+  httpHead: Function,
+  httpDelete: Function,
+  httpConnect: Function,
+  httpOptions: Function,
+  httpTrace: Function,
   job: MinerJobRequest
 };
 
@@ -29,65 +45,83 @@ class JobRunner extends Component<Props> {
     const { protocol } = jobData;
     switch (protocol) {
       case 'http':
-        // although could end up needing to be done via cURL (native)
         this.handleHttpMethod(jobData);
         break;
       case 'tcp':
-        // setup a socket connection (native functionality)
+        this.handleTcpJob(jobData);
         break;
       case 'udp':
-        // setup a udp connection (native functionality)
+        this.handleUdpJob(jobData);
+        break;
+      case 'dns':
+        this.handleDnsJob(jobData);
         break;
       case 'icmp':
-        // send a ping (native functionality)
+        this.handleIcmpJob(jobData);
         break;
     }
   };
 
   // ===============================================
-  // method handlers
+  // Protocol handlers
+  //
 
   handleHttpMethod: (jobData: MinerJobRequest) => void = jobData => {
     const { method } = jobData;
 
     switch (method) {
       case 'GET':
-        console.log('at get method');
         this.props.httpGet(jobData);
         break;
       case 'POST':
-        console.log('at post method');
-        //this.props.httpPost(jobData);
+        this.props.httpPost(jobData);
         break;
       case 'PUT':
+        this.props.httpPut(jobData);
         break;
       case 'PATCH':
+        this.props.httpPatch(jobData);
         break;
       case 'HEAD':
+        this.props.httpHead(jobData);
         break;
       case 'DELETE':
+        this.props.httpDelete(jobData);
         break;
       case 'CONNECT':
+        this.props.httpConnect(jobData);
         break;
       case 'OPTIONS':
+        this.props.httpOptions(jobData);
         break;
       case 'TRACE':
-        break;
-      case 'TRACEROUTE':
-        break;
-      case 'PING':
+        this.props.httpTrace(jobData);
         break;
     }
   };
 
-  handleTcpMethod: (jobData: MinerJobRequest) => void = jobData => {
+  handleTcpJob: (jobData: MinerJobRequest) => void = jobData => {
     const { job_type } = jobData;
 
     switch (job_type) {
     }
   };
 
-  handleUdpMethod: (jobData: MinerJobRequest) => void = jobData => {
+  handleUdpJob: (jobData: MinerJobRequest) => void = jobData => {
+    const { job_type } = jobData;
+
+    switch (job_type) {
+    }
+  };
+
+  handleIcmpJob: (jobData: MinerJobRequest) => void = jobData => {
+    const { job_type } = jobData;
+
+    switch (job_type) {
+    }
+  };
+
+  handleDnsJob: (jobData: MinerJobRequest) => void = jobData => {
     const { job_type } = jobData;
 
     switch (job_type) {
@@ -104,7 +138,13 @@ class JobRunner extends Component<Props> {
 const mapDispatchToProps = dispatch => {
   return {
     httpGet: jobData => dispatch(httpGet(jobData)),
-    httpPost: jobData => dispatch(httpPost(jobData))
+    httpPost: jobData => dispatch(httpPost(jobData)),
+    httpPut: jobData => dispatch(httpPut(jobData)),
+    httpHead: jobData => dispatch(httpHead(jobData)),
+    httpDelete: jobData => dispatch(httpDelete(jobData)),
+    httpConnect: jobData => dispatch(httpConnect(jobData)),
+    httpOptions: jobData => dispatch(httpOptions(jobData)),
+    httpTrace: jobData => dispatch(httpTrace(jobData))
   };
 };
 

@@ -1,6 +1,11 @@
 // @flow
 
-import type { Ack, CheckIn, DeviceOS } from '../shared/types/messages.types';
+import type {
+  Ack,
+  CheckIn,
+  DeviceOS,
+  JobResult
+} from '../shared/types/messages.types';
 
 import {
   receiveJob,
@@ -50,8 +55,10 @@ export const createAckMsg: (msg_id: string) => Ack = msg_id => {
   };
 };
 
-export const createJobResultMsg = () => {
+export const createJobResultMsg: (result: Object) => JobResult = result => {
   return {
-    type: SUBMIT_JOB
+    id: uuid4(),
+    type: SUBMIT_JOB,
+    ...result
   };
 };
