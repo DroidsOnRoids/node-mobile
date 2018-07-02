@@ -21,9 +21,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# OSX
-.DS_Store
-
 # Thumbnails
 ._*
 
@@ -58,10 +55,6 @@ project.xcworkspace
 .idea
 .gradle
 local.properties
-
-# node.js
-node_modules/
-npm-debug.log
 
 # BUCK
 buck-out/
