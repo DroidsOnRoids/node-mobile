@@ -121,15 +121,25 @@ export const httpOptions: (data: MinerJobRequest) => Thunk = data => {
 export const httpConnect: (data: MinerJobRequest) => Thunk = data => {
   const uri = generateEndpoint(data);
 
+  const request = {
+    method: 'CONNECT',
+    url: uri
+  };
+
   return dispatch => {
-    handleRequest(axios.post(uri), data, Date.now(), dispatch);
+    handleRequest(axios(request), data, Date.now(), dispatch);
   };
 };
 
 export const httpTrace: (data: MinerJobRequest) => Thunk = data => {
   const uri = generateEndpoint(data);
 
+  const request = {
+    method: 'TRACE',
+    url: uri
+  };
+
   return dispatch => {
-    handleRequest(axios.post(uri), data, Date.now(), dispatch);
+    handleRequest(axios(request), data, Date.now(), dispatch);
   };
 };
