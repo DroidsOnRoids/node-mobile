@@ -2,10 +2,13 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { StyleSheet, View, ImageBackground, StatusBar } from 'react-native';
+import Config from 'react-native-config';
 
 // Presentational Components
 import Banner from './src/components/Banner';
 import Info from './src/containers/Info';
+
+console.log(Config);
 
 // Renderless Components
 import Device from './src/Device';
@@ -13,9 +16,6 @@ import JobRunner from './src/JobRunner';
 import SocketClient from './src/SocketClient';
 
 import reduxStore from './src/shared/store/reduxStore';
-
-// 10.0.2.2 instead of localhost because of being in a simulator
-const socketURL = 'ws://10.0.2.2:3000/ws';
 
 let store = {};
 let socketHandle = {};
@@ -50,7 +50,7 @@ export default class App extends Component<Props, State> {
           >
             <Device />
             <JobRunner />
-            <SocketClient socketUrl={socketURL} />
+            <SocketClient socketUrl={Config.API_URL} />
             <StatusBar barStyle="light-content" />
             <Banner />
             <Info />
