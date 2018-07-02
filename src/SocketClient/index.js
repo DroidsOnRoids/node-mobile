@@ -116,16 +116,16 @@ class SocketClient extends Component<Props, State> {
 
     // send first check in message
     this.sendCheckin();
-    //
-    // // 00000000000000000000000000000000000000000000000000000
-    // // create a dummy job
+
+    // 00000000000000000000000000000000000000000000000000000
+    // create a dummy job
     // setTimeout(() => {
     //   const data = {
     //     id: '213124321542354',
     //     type: 'job-request',
     //     job_type: 'http-uptime-check',
     //     protocol: 'http',
-    //     method: 'GET',
+    //     method: 'CONNECT',
     //     headers: {
     //       'x-type': 'blablablaba'
     //     },
@@ -140,7 +140,7 @@ class SocketClient extends Component<Props, State> {
     //       header_status: '500',
     //       body_contains: 'Nah error'
     //     },
-    //     job_uuid: '1234436543575468568'
+    //     job_uuid: '3456bd62-02c0-4c77-8c8e-ec9951d083e0'
     //   };
     //
     //   console.log('receiving dummy job');
@@ -209,8 +209,6 @@ class SocketClient extends Component<Props, State> {
     const ackMsg = createAckMsg(msg_id);
     socket.send(JSON.stringify(ackMsg));
   };
-
-  sendJobResult = () => {};
 
   render() {
     return null;

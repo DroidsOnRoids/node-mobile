@@ -7,6 +7,7 @@ import Config from 'react-native-config';
 // Presentational Components
 import Banner from './src/components/Banner';
 import Info from './src/containers/Info';
+import UserSettings from './src/components/UserSettings';
 
 console.log(Config);
 
@@ -52,6 +53,7 @@ export default class App extends Component<Props, State> {
             <JobRunner />
             <SocketClient socketUrl={Config.API_URL} />
             <StatusBar barStyle="light-content" />
+            <UserSettings />
             <Banner />
             <Info />
           </ImageBackground>
