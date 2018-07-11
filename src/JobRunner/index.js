@@ -36,7 +36,6 @@ class JobRunner extends Component<Props> {
     // run job if so
     if (this.props.job !== prevProps.job) {
       console.log('jobrunner state updated');
-      console.log('state', this.props.job);
       this.handleProtocol(this.props.job);
     }
   }
@@ -45,18 +44,23 @@ class JobRunner extends Component<Props> {
     const { protocol } = jobData;
     switch (protocol) {
       case 'http':
+      case 'HTTP':
         this.handleHttpMethod(jobData);
         break;
       case 'tcp':
+      case 'TCP':
         this.handleTcpJob(jobData);
         break;
       case 'udp':
+      case 'UDP':
         this.handleUdpJob(jobData);
         break;
       case 'dns':
+      case 'DNS':
         this.handleDnsJob(jobData);
         break;
       case 'icmp':
+      case 'ICMP':
         this.handleIcmpJob(jobData);
         break;
     }

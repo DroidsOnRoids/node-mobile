@@ -69,10 +69,24 @@ class SocketClient extends Component<Props, State> {
     if (this.props.job !== prevProps.job) {
       if (
         this.props.job.jobPending === false &&
-        this.props.job.errorMessage === ''
+        this.props.job.jobFailure.message === ''
       ) {
         console.log('SENDING JOB RESULT');
         const jobResult = createJobResultMsg(this.props.job.jobSuccess);
+        console.log(jobResult);
+        socket.send(JSON.stringify(jobResult));
+        this.props.incrementJobCount();
+      } else if (
+        this.props.job.jobPending === false &&
+        this.props.job.jobFailure.message === 'Job result failed'
+      ) {
+        console.log('SENDING JOB RESULT FAILURE');
+        const jobResult = createJobResultMsg({
+          job_uuid: this.props.job.jobFailure.job_uuid,
+          status: 'critical',
+          response_time: 0
+        });
+
         console.log(jobResult);
         socket.send(JSON.stringify(jobResult));
         this.props.incrementJobCount();
@@ -127,26 +141,15 @@ class SocketClient extends Component<Props, State> {
     // create a dummy job
     // setTimeout(() => {
     //   const data = {
-    //     id: '213124321542354',
-    //     type: 'job-request',
-    //     job_type: 'http-uptime-check',
-    //     protocol: 'http',
-    //     method: 'CONNECT',
-    //     headers: {
-    //       'x-type': 'blablablaba'
-    //     },
-    //     payload: 'asfdbnaksjfbkasjf',
-    //     endpoint_address: 'http://joshs.space',
+    //     critical_after: 3000,
+    //     degraded_after: 2000,
+    //     method: 'GET',
+    //     protocol: 'HTTP',
+    //     endpoint_address: 'http://robert.cavanaugh',
     //     endpoint_port: '80',
-    //     endpoint_additional_params: '',
-    //     polling_interval: 50,
-    //     degraded_after: 60,
-    //     critical_after: 70,
-    //     critical_responses: {
-    //       header_status: '500',
-    //       body_contains: 'Nah error'
-    //     },
-    //     job_uuid: '3456bd62-02c0-4c77-8c8e-ec9951d083e0'
+    //     id: '4297499f-7067-40e1-af1d-c75f4c2ba1fd',
+    //     job_uuid: '687802bf-45bc-4f15-be77-41365ac40a2c',
+    //     type: 'job-request'
     //   };
     //
     //   console.log('receiving dummy job');

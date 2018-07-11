@@ -34,13 +34,16 @@ const jobPending = (state: boolean = false, action: any) => {
   }
 };
 
-const errorMessage = (state: string = '', action: any) => {
+const jobFailure = (state: string = '', action: any) => {
   switch (action.type) {
     case JOB_FAILURE:
-      return action.message;
+      return {
+        message: action.message,
+        job_uuid: action.job_uuid
+      };
     case JOB_PENDING:
     case JOB_SUCCESS:
-      return '';
+      return { message: '' };
     default:
       return state;
   }
@@ -49,7 +52,7 @@ const errorMessage = (state: string = '', action: any) => {
 const job = combineReducers({
   jobSuccess,
   jobPending,
-  errorMessage
+  jobFailure
 });
 
 export default job;

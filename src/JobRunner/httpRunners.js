@@ -10,7 +10,7 @@ const generateEndpoint: (data: MinerJobRequest) => string = data => {
   const {
     endpoint_address,
     endpoint_port = '80',
-    endpoint_additional_params
+    endpoint_additional_params = ''
   } = data;
 
   return `${endpoint_address}:${endpoint_port}/${endpoint_additional_params}`;
@@ -35,6 +35,7 @@ const handleRequest: (
   timeStamp: number,
   dispatch: Function
 ) => any = (request, jobData, timeStamp, dispatch) => {
+  console.log(jobData);
   request
     .then(data => {
       const response_time = Date.now() - timeStamp;
@@ -51,6 +52,7 @@ const handleRequest: (
       dispatch(jobResultSuccess(result));
     })
     .catch(error => {
+      console.log(error);
       const result = {
         job_uuid: jobData.job_uuid
       };
@@ -69,7 +71,7 @@ export const httpGet: (data: MinerJobRequest) => any = data => {
 
 export const httpPost: (data: MinerJobRequest) => Thunk = data => {
   const uri = generateEndpoint(data);
-
+  console.log('here POST');
   return dispatch => {
     handleRequest(axios.post(uri), data, Date.now(), dispatch);
   };
