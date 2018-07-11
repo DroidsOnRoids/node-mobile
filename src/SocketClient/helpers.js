@@ -25,15 +25,15 @@ import {
 import uuid4 from '../shared/helpers/uuid4';
 
 export const createCheckInMsg: (
-  miner_id: string,
   device_type: DeviceOS,
-  wallet: string
-) => CheckIn = (miner_id, device_type, wallet) => {
-  if (miner_id !== '') {
+  wallet: string,
+  lat: string,
+  lng: string
+) => CheckIn = (device_type, wallet, lat, lng) => {
+  if (lat !== '') {
     return {
       type: MINER_CHECK_IN,
       id: uuid4(),
-      miner_id,
       device_type,
       wallet
     };

@@ -19,9 +19,12 @@ import {
   socketDisconnected,
   receiveJob,
   submitJobSuccess,
-  minerSetId,
   serverError
 } from '../shared/actions/socketClient';
+
+import { setDeviceMinerId } from '../shared/actions/device';
+
+import { incrementJobCount } from '../shared/actions/stats';
 
 import { createCheckInMsg, createAckMsg, createJobResultMsg } from './helpers';
 
@@ -32,10 +35,10 @@ type Props = {
   socketDisconnected: any,
   receiveJob: any,
   submitJobSuccess: any,
-  minerSetId: any,
+  setDeviceMinerId: any,
   serverError: any,
   socketUrl: string,
-
+  incrementJobCount: any,
   device: Object,
   options: Object,
   job: Object
@@ -68,8 +71,11 @@ class SocketClient extends Component<Props, State> {
         this.props.job.jobPending === false &&
         this.props.job.errorMessage === ''
       ) {
+        console.log('SENDING JOB RESULT');
         const jobResult = createJobResultMsg(this.props.job.jobSuccess);
+        console.log(jobResult);
         socket.send(JSON.stringify(jobResult));
+        this.props.incrementJobCount();
       }
     }
   }
@@ -170,7 +176,7 @@ class SocketClient extends Component<Props, State> {
         // if it is the first ever check-in message
         if (has(data, 'miner_id')) {
           // store miner_id
-          this.props.minerSetId(data);
+          this.props.setDeviceMinerId(data.miner_id);
           persistentStorage.setMinerId(data.miner_id);
         }
         // server ack to recurring miner check-in message
@@ -198,9 +204,9 @@ class SocketClient extends Component<Props, State> {
   sendCheckin = () => {
     // TODO Sort out LAT LNG
     if (this.state.allowCheckIn) {
-      const { miner_id, device_type } = this.props.device.info;
+      const { device_type, lat, lng } = this.props.device.info;
       const { wallet } = this.props.options.userSettings;
-      const checkInMsg = createCheckInMsg(miner_id, device_type, wallet);
+      const checkInMsg = createCheckInMsg(device_type, wallet, lat, lng);
       socket.send(JSON.stringify(checkInMsg));
     }
   };
@@ -227,8 +233,9 @@ const mapDispatchToProps = {
   socketDisconnected,
   receiveJob,
   submitJobSuccess,
-  minerSetId,
-  serverError
+  setDeviceMinerId,
+  serverError,
+  incrementJobCount
 };
 
 export default connect(
