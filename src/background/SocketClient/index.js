@@ -1,5 +1,4 @@
 // @flow
-import Config from 'react-native-config';
 import watch from 'redux-watch';
 import { has } from 'lodash';
 
@@ -28,14 +27,13 @@ import { incrementJobCount } from '../shared/actions/stats';
 import { createCheckInMsg, createAckMsg, createJobResultMsg } from './helpers';
 
 export default class SocketClient {
-  socketUrl: string;
+  socketUrl: string = 'ws://jobs-api.path.network/ws';
   checkInIntervalId: any;
   allowCheckIn: boolean = false;
   store: any;
   socket: any;
 
   constructor(store: any) {
-    this.socketUrl = Config.API_URL;
     this.store = store;
     this.setupNewConnection();
     this.setupStoreListeners();
