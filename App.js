@@ -2,24 +2,15 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { StyleSheet, View, ImageBackground, StatusBar } from 'react-native';
-import Config from 'react-native-config';
 
 // Presentational Components
-import Banner from './src/components/Banner';
-import Info from './src/containers/Info';
-import UserSettings from './src/components/UserSettings';
+import Banner from './src/ui/components/Banner';
+import Info from './src/ui/containers/Info';
+import UserSettings from './src/ui/components/UserSettings';
 
-console.log(Config);
-
-// Renderless Components
-import Device from './src/Device';
-import JobRunner from './src/JobRunner';
-import SocketClient from './src/SocketClient';
-
-import reduxStore from './src/shared/store/reduxStore';
+import reduxStore from './src/ui/shared/store/reduxStore';
 
 let store = {};
-let socketHandle = {};
 
 type Props = {};
 
@@ -49,13 +40,9 @@ export default class App extends Component<Props, State> {
             source={require('./assets/images/3_bg.jpg')}
             style={styles.container}
           >
-            <Device />
-            <JobRunner />
-            <SocketClient socketUrl={Config.API_URL} />
             <StatusBar barStyle="light-content" />
             <UserSettings />
             <Banner />
-            <Info />
           </ImageBackground>
         </Provider>
       );
