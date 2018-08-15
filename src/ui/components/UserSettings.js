@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 import { updateDeviceInfo } from '../shared/actions';
-import { setWalletAddress } from '../shared/store/persistentStorage';
+import { setWalletAddress } from '../../shared/persistentStorage';
 
 type Props = {
   wallet: string,

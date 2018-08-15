@@ -8,19 +8,20 @@
 
     <application
       android:name=".MainApplication"
-      android:label="@string/app_name"
+      android:label="Path App"
       android:icon="@mipmap/ic_launcher"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
       <service android:name=".PathBackgroundService" />
       <receiver android:name=".PathReceiver" >
           <intent-filter>
-              <action android:name="android.intent.action.BOOT_COMPLETED"/>
+              <action android:name="com.mobileminer.RESTART_SERVICE" />
+              <category android:name="android.intent.category.DEFAULT" />
           </intent-filter>
       </receiver>
       <activity
         android:name=".MainActivity"
-        android:label="@string/app_name"
+        android:label="Path App"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
         android:windowSoftInputMode="adjustResize">
         <intent-filter>

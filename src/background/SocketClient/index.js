@@ -2,7 +2,7 @@
 import watch from 'redux-watch';
 import { has } from 'lodash';
 
-import * as persistentStorage from '../shared/store/persistentStorage';
+import * as persistentStorage from '../../shared/persistentStorage';
 
 import {
   MINER_CHECK_IN,

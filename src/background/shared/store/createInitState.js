@@ -5,7 +5,7 @@ import { AsyncStorage } from 'react-native';
 
 import { has } from 'lodash';
 
-import { setMinerId } from './persistentStorage';
+import { setMinerId } from '../../../shared/persistentStorage';
 
 const PATH_STORAGE_REF = 'PATH_STORAGE';
 

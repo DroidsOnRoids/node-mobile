@@ -19,6 +19,9 @@ const setPersistStorage = async (key: string, value: string) => {
   }
 };
 
+// ====================================================
+// Setters
+// ====================================================
 export const setMinerId = async (miner_id: string) => {
   try {
     await setPersistStorage('miner_id', miner_id);
@@ -35,9 +38,12 @@ export const setWalletAddress = async (wallet: string) => {
   }
 };
 
-export const setWifiEnabled = async (wifi_enabled: string) => {
+// ====================================================
+// Getters
+// ====================================================
+export const getMinerId = async (miner_id: string) => {
   try {
-    await setPersistStorage('wifi_enabled', wifi_enabled);
+    await setPersistStorage('miner_id', miner_id);
   } catch (error) {
     console.log(error);
   }
