@@ -17,6 +17,10 @@ const generateEndpoint: (data: MinerJobRequest) => string = data => {
     endpoint_port = '443';
   }
 
+  if (address.port !== '') {
+    endpoint_port = address.port;
+  }
+
   return `${address.protocol}//${address.hostname}:${endpoint_port}${
     address.pathname
   }${endpoint_additional_params}`;
