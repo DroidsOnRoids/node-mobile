@@ -2,6 +2,7 @@ package com.mobileminer;
 
 import android.app.Application;
 
+import com.facebook.react.HeadlessJsTaskService;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -43,7 +44,7 @@ public class MainApplication extends Application implements ReactApplication {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
 
-    Intent intent = new Intent("com.mobileminer.RESTART_SERVICE");
-    sendBroadcast(intent);
+    Intent service = new Intent(getApplicationContext(), PathBackgroundService.class);
+    getApplicationContext().startService(service);
   }
 }
