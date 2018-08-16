@@ -1,19 +1,25 @@
 // @flow
-import type { MinerJobRequest, Status } from '../shared/types/job.types';
-import type { Action, Thunk } from '../shared/types/action.types';
+import UrlParse from 'url-parse';
+import { has } from 'lodash';
+import axios from 'axios';
 
 import { jobResultSuccess, jobResultFailure } from '../shared/actions/job';
 
-import axios from 'axios';
+import type { MinerJobRequest, Status } from '../shared/types/job.types';
+import type { Action, Thunk } from '../shared/types/action.types';
 
 const generateEndpoint: (data: MinerJobRequest) => string = data => {
-  const {
-    endpoint_address,
-    endpoint_port = '80',
-    endpoint_additional_params = ''
-  } = data;
+  let { endpoint_port = '80', endpoint_additional_params = '' } = data;
 
-  return `${endpoint_address}:${endpoint_port}/${endpoint_additional_params}`;
+  const address = new UrlParse(data.endpoint_address);
+
+  if (address.protocol === 'https:' && !has(data, 'endpoint_port')) {
+    endpoint_port = '443';
+  }
+
+  return `${address.protocol}//${address.hostname}:${endpoint_port}${
+    address.pathname
+  }${endpoint_additional_params}`;
 };
 
 const getStatus: (responseTime: number, jobData: MinerJobRequest) => Status = (
