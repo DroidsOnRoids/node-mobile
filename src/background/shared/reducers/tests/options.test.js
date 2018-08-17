@@ -12,7 +12,7 @@ describe('device reducer', () => {
     expect(reducers(undefined, {})).toEqual(initialState);
   });
 
-  it('should handle OPTIONS_UPDATE_WALLET', () => {
+  it('should handle OPTIONS_SET_WALLET', () => {
     const expectedState = {
       ...defaultState,
       options: {
@@ -22,7 +22,7 @@ describe('device reducer', () => {
     };
 
     const successAction = {
-      type: actions.OPTIONS_UPDATE_WALLET,
+      type: actions.OPTIONS_SET_WALLET,
       wallet: 'walletAdressdsufgkjsdfbsdkjf'
     };
     expect(reducers({}, successAction)).toEqual(expectedState);

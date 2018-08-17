@@ -2,7 +2,11 @@
 import { has } from 'lodash';
 import { AsyncStorage } from 'react-native';
 
-import { PATH_DEFAULT_WALLET_ADDRESS } from './constants';
+// FUCKING PIECE OF SHIT
+// if you try and import this from the constants file
+// it comes in as undefined
+const PATH_DEFAULT_WALLET_ADDRESS =
+  '0xF1CD6d591161A7470db74d7556876A7b5C6B9135';
 
 // These have to be in this file, otherwise weird timing bugs
 // happen
@@ -38,6 +42,7 @@ const getPersistStorage = async (key: string) => {
     const currentStore = JSON.parse(storeString) || {};
     if (has(currentStore, key)) {
       const value = currentStore[key];
+      console.log(value);
       return value;
     }
   }
@@ -71,6 +76,16 @@ export const setWalletAddress = async (wallet: string) => {
 export const getWalletAddress = async () => {
   try {
     const wallet = await getPersistStorage(PATH_STORAGE_WALLET_KEY);
+
+    if (wallet === null) {
+      console.log('BULLSHIT:', PATH_DEFAULT_WALLET_ADDRESS);
+
+      await setPersistStorage(
+        PATH_STORAGE_WALLET_KEY,
+        PATH_DEFAULT_WALLET_ADDRESS
+      );
+    }
+    console.log('BULLSHIT:', PATH_DEFAULT_WALLET_ADDRESS);
     return wallet || PATH_DEFAULT_WALLET_ADDRESS;
   } catch (error) {
     console.log(error);
@@ -81,6 +96,11 @@ export const getWalletAddress = async () => {
 export const getJobCount = async () => {
   try {
     const count = await getPersistStorage(PATH_STORAGE_JOB_COUNT_KEY);
+
+    if (count === null) {
+      await setPersistStorage(PATH_STORAGE_JOB_COUNT_KEY, '0');
+    }
+
     return count || '0';
   } catch (error) {
     console.log(error);

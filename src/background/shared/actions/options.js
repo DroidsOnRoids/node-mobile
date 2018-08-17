@@ -1,9 +1,9 @@
 // @flow
 // device actions
-import { OPTIONS_UPDATE_WALLET, OPTIONS_FAILURE } from './constants';
+import { OPTIONS_SET_WALLET, OPTIONS_FAILURE } from './constants';
 
 export const updateWallet: (wallet: string) => any = wallet => ({
-  type: OPTIONS_UPDATE_WALLET,
+  type: OPTIONS_SET_WALLET,
   wallet: wallet
 });
 
