@@ -100,7 +100,7 @@ class UserSettings extends Component<Props, State> {
                 style={{
                   fontFamily: 'Exo-Regular',
                   color: 'white',
-                  fontSize: 20,
+                  fontSize: 14,
                   height: 60
                 }}
                 onChangeText={wallet => this.setState({ wallet })}
