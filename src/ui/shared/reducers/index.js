@@ -10,7 +10,7 @@ const reducers = combineReducers({
 
 export default reducers;
 
-export const getOptions = (state: any) => fromOptions.getOptions(state.options);
+export const getWallet = (state: any) => fromOptions.getWallet(state.options);
 export const getOptionsErrorMessage = (state: any) =>
   fromOptions.getErrorMessage(state.options);
 

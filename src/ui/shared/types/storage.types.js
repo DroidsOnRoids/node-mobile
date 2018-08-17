@@ -1,34 +1,11 @@
 // @flow
-export type PersistantStorage = {
-  // settings
+
+// for both redux and
+export type UIReduxStorage = {
   options: {
-    walletAddress: string,
-    wifi_only: boolean
+    wallet: string
   },
   stats: {
-    jobCompleteCount: number,
-    pathMinedCount: number
+    jobCompleteCount: number
   }
 };
-
-export type DynamicStorage = {
-  job: {
-    state: string,
-    result: any // sort this out
-  },
-  device: {
-    ip: string,
-    asn: string
-  },
-  options: {
-    walletAddress: string,
-    wifi_only: boolean
-  },
-  stats: {
-    jobCompleteCount: number,
-    pathMinedCount: number
-  }
-};
-
-// @TODO: properly type the redux store
-export type State = Object;

@@ -1,17 +1,12 @@
 // @flow
 import { combineReducers } from 'redux';
 
-import { OPTIONS_SUCCESS, OPTIONS_FAILURE } from '../actions/constants';
+import { OPTIONS_SET_WALLET, OPTIONS_FAILURE } from '../actions/constants';
 
-const initialOptions = {
-  wallet: '',
-  wifi_only: false
-};
-
-const userSettings = (state: any = initialOptions, action: any) => {
+const wallet = (state: string = '', action: any) => {
   switch (action.type) {
-    case OPTIONS_SUCCESS:
-      return action.data;
+    case OPTIONS_SET_WALLET:
+      return action.wallet;
     default:
       return state;
   }
@@ -21,7 +16,7 @@ const errorMessage = (state: string = '', action: any) => {
   switch (action.type) {
     case OPTIONS_FAILURE:
       return action.message;
-    case OPTIONS_SUCCESS:
+    case OPTIONS_SET_WALLET:
       return '';
     default:
       return state;
@@ -29,11 +24,11 @@ const errorMessage = (state: string = '', action: any) => {
 };
 
 const options = combineReducers({
-  userSettings,
+  wallet,
   errorMessage
 });
 
 export default options;
 
-export const getOptions = (state: any) => state.options;
+export const getWallet = (state: any) => state.options;
 export const getErrorMessage = (state: any) => state.errorMessage;

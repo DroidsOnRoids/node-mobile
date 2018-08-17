@@ -1,37 +1,25 @@
 // @flow
-import type { DynamicStorage } from '../types/storage.types.js';
-import initStorage from './initStorage';
+import type { UIReduxStorage } from '../types/storage.types.js';
 import { AsyncStorage } from 'react-native';
-
 import { has } from 'lodash';
+
+import {
+  getWalletAddress,
+  getJobCount
+} from '../../../shared/persistentStorage';
 
 const PATH_STORAGE_REF = 'PATH_STORAGE';
 
 const createInitState = async () => {
-  const storage = JSON.parse(await AsyncStorage.getItem('PATH_STORAGE'));
-
-  if (storage === null) {
-    return {
-      options: {
-        userSettings: {
-          // TODO REMOVE / UPDATE
-          wallet: '0x12345678901234567890'
-        }
-      }
-    };
-  }
-
-  const optionsStored = {
-    // TODO STRING NEEDS TO BE EMPTY
-    wallet: storage.wallet || '0x12345678901234567890',
-    wifi_enabled: storage.wifi_enabled || ''
-  };
+  const wallet = await getWalletAddress();
+  const jobCount = await getJobCount();
 
   return {
     options: {
-      userSettings: {
-        ...optionsStored
-      }
+      wallet: wallet || ''
+    },
+    stats: {
+      jobCompleteCount: jobCount || '0'
     }
   };
 };

@@ -43,6 +43,7 @@ export default class App extends Component<Props, State> {
             <StatusBar barStyle="light-content" />
             <UserSettings />
             <Banner />
+            <Info />
           </ImageBackground>
         </Provider>
       );

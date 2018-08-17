@@ -10,12 +10,13 @@ import {
   View
 } from 'react-native';
 
-import { updateDeviceInfo } from '../shared/actions';
+import { updateWalletAddress } from '../shared/actions/options';
+
 import { setWalletAddress } from '../../shared/persistentStorage';
 
 type Props = {
-  wallet: string,
-  updateDeviceInfo: Function
+  updateWalletAddress: Function,
+  wallet: string
 };
 
 type State = {
@@ -67,11 +68,8 @@ class UserSettings extends Component<Props, State> {
               <TouchableHighlight
                 onPress={() => {
                   this.setModalVisible(!this.state.modalVisible);
-                  this.props.updateDeviceInfo({
-                    device: {
-                      walletAddress: this.state.wallet,
-                      wifi_only: false
-                    }
+                  this.props.updateWalletAddress({
+                    wallet: this.state.wallet
                   });
                   setWalletAddress(this.state.wallet);
                 }}
@@ -112,11 +110,8 @@ class UserSettings extends Component<Props, State> {
               <TouchableHighlight
                 onPress={() => {
                   this.setModalVisible(!this.state.modalVisible);
-                  this.props.updateDeviceInfo({
-                    device: {
-                      walletAddress: this.state.wallet,
-                      wifi_only: false
-                    }
+                  this.props.updateWalletAddress({
+                    wallet: this.state.wallet
                   });
                   setWalletAddress(this.state.wallet);
                 }}
@@ -153,12 +148,12 @@ class UserSettings extends Component<Props, State> {
 
 const mapStateToProps = state => {
   return {
-    wallet: state.options.walletAddress
+    wallet: state.options.wallet
   };
 };
 
 const mapDispatchToProps = {
-  updateDeviceInfo
+  updateWalletAddress
 };
 
 export default connect(

@@ -1,6 +1,11 @@
+//@flow
+import { has } from 'lodash';
 import { AsyncStorage } from 'react-native';
 
 const PATH_STORAGE_REF = 'PATH_STORAGE';
+
+const PATH_STORAGE_WALLET_REF = 'wallet';
+const PATH_STORAGE_JOB_COUNT_REF = 'jobCompleteCount';
 
 //AsyncStorage.setItem(PATH_STORAGE_REF, '');
 
@@ -19,12 +24,28 @@ const setPersistStorage = async (key: string, value: string) => {
   }
 };
 
+const getPersistStorage = async (key: string) => {
+  const storeString = await AsyncStorage.getItem(PATH_STORAGE_REF);
+
+  if (storeString !== null) {
+    const currentStore = JSON.parse(storeString) || {};
+
+    if (has(currentStore, key)) {
+      const value = currentStore[key];
+      return value;
+    }
+  }
+  return null;
+};
+
 // ====================================================
 // Setters
 // ====================================================
-export const setMinerId = async (miner_id: string) => {
+export const incrementJobCount = async () => {
   try {
-    await setPersistStorage('miner_id', miner_id);
+    const jobCount = await getJobCount();
+    const newJobCount = parseInt(jobCount) + 1;
+    await setPersistStorage(PATH_STORAGE_JOB_COUNT_REF, newJobCount.toString());
   } catch (error) {
     console.log(error);
   }
@@ -32,7 +53,7 @@ export const setMinerId = async (miner_id: string) => {
 
 export const setWalletAddress = async (wallet: string) => {
   try {
-    await setPersistStorage('wallet', wallet);
+    await setPersistStorage(PATH_STORAGE_WALLET_REF, wallet);
   } catch (error) {
     console.log(error);
   }
@@ -41,10 +62,22 @@ export const setWalletAddress = async (wallet: string) => {
 // ====================================================
 // Getters
 // ====================================================
-export const getMinerId = async (miner_id: string) => {
+export const getWalletAddress = async () => {
   try {
-    await setPersistStorage('miner_id', miner_id);
+    const wallet = await getPersistStorage(PATH_STORAGE_WALLET_REF);
+    return wallet || '';
   } catch (error) {
     console.log(error);
   }
+  return null;
+};
+
+export const getJobCount = async () => {
+  try {
+    const count = await getPersistStorage(PATH_STORAGE_JOB_COUNT_REF);
+    return count || '0';
+  } catch (error) {
+    console.log(error);
+  }
+  return '0';
 };
