@@ -12,23 +12,18 @@ describe('device reducer', () => {
     expect(reducers(undefined, {})).toEqual(initialState);
   });
 
-  it('should handle OPTIONS_SUCCESS', () => {
-    const userSettingsData = {
-      wallet: 'walletAdressdsufgkjsdfbsdkjf',
-      wifi_only: true
-    };
-
+  it('should handle OPTIONS_UPDATE_WALLET', () => {
     const expectedState = {
       ...defaultState,
       options: {
         errorMessage: '',
-        userSettings: userSettingsData
+        wallet: 'walletAdressdsufgkjsdfbsdkjf'
       }
     };
 
     const successAction = {
-      type: actions.OPTIONS_SUCCESS,
-      data: userSettingsData
+      type: actions.OPTIONS_UPDATE_WALLET,
+      wallet: 'walletAdressdsufgkjsdfbsdkjf'
     };
     expect(reducers({}, successAction)).toEqual(expectedState);
   });
@@ -38,10 +33,7 @@ describe('device reducer', () => {
       ...defaultState,
       options: {
         errorMessage: 'testing',
-        userSettings: {
-          wallet: '',
-          wifi_only: false
-        }
+        wallet: ''
       }
     };
 

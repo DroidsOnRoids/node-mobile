@@ -16,10 +16,7 @@ const defaultState = {
   },
   options: {
     errorMessage: '',
-    userSettings: {
-      wallet: '',
-      wifi_only: false
-    }
+    wallet: ''
   },
   socketClient: {
     socketConnected: false,

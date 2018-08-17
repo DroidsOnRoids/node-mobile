@@ -2,10 +2,13 @@
 import { has } from 'lodash';
 import { AsyncStorage } from 'react-native';
 
-const PATH_STORAGE_REF = 'PATH_STORAGE';
+import { PATH_DEFAULT_WALLET_ADDRESS } from './constants';
 
-const PATH_STORAGE_WALLET_REF = 'wallet';
-const PATH_STORAGE_JOB_COUNT_REF = 'jobCompleteCount';
+// These have to be in this file, otherwise weird timing bugs
+// happen
+const PATH_STORAGE_REF = 'PATH_STORAGE';
+const PATH_STORAGE_WALLET_KEY = 'wallet';
+const PATH_STORAGE_JOB_COUNT_KEY = 'jobCompleteCount';
 
 //AsyncStorage.setItem(PATH_STORAGE_REF, '');
 
@@ -19,7 +22,11 @@ const setPersistStorage = async (key: string, value: string) => {
       ...currentStore,
       [key]: value
     };
-
+    await AsyncStorage.setItem(PATH_STORAGE_REF, JSON.stringify(newState));
+  } else {
+    const newState = {
+      [key]: value
+    };
     await AsyncStorage.setItem(PATH_STORAGE_REF, JSON.stringify(newState));
   }
 };
@@ -29,7 +36,6 @@ const getPersistStorage = async (key: string) => {
 
   if (storeString !== null) {
     const currentStore = JSON.parse(storeString) || {};
-
     if (has(currentStore, key)) {
       const value = currentStore[key];
       return value;
@@ -41,11 +47,11 @@ const getPersistStorage = async (key: string) => {
 // ====================================================
 // Setters
 // ====================================================
-export const incrementJobCount = async () => {
+export const incrementStorageJobCount = async () => {
   try {
     const jobCount = await getJobCount();
     const newJobCount = parseInt(jobCount) + 1;
-    await setPersistStorage(PATH_STORAGE_JOB_COUNT_REF, newJobCount.toString());
+    await setPersistStorage(PATH_STORAGE_JOB_COUNT_KEY, newJobCount.toString());
   } catch (error) {
     console.log(error);
   }
@@ -53,7 +59,7 @@ export const incrementJobCount = async () => {
 
 export const setWalletAddress = async (wallet: string) => {
   try {
-    await setPersistStorage(PATH_STORAGE_WALLET_REF, wallet);
+    await setPersistStorage(PATH_STORAGE_WALLET_KEY, wallet);
   } catch (error) {
     console.log(error);
   }
@@ -64,8 +70,8 @@ export const setWalletAddress = async (wallet: string) => {
 // ====================================================
 export const getWalletAddress = async () => {
   try {
-    const wallet = await getPersistStorage(PATH_STORAGE_WALLET_REF);
-    return wallet || '';
+    const wallet = await getPersistStorage(PATH_STORAGE_WALLET_KEY);
+    return wallet || PATH_DEFAULT_WALLET_ADDRESS;
   } catch (error) {
     console.log(error);
   }
@@ -74,7 +80,7 @@ export const getWalletAddress = async () => {
 
 export const getJobCount = async () => {
   try {
-    const count = await getPersistStorage(PATH_STORAGE_JOB_COUNT_REF);
+    const count = await getPersistStorage(PATH_STORAGE_JOB_COUNT_KEY);
     return count || '0';
   } catch (error) {
     console.log(error);

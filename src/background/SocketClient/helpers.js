@@ -1,6 +1,9 @@
 // @flow
 import { has } from 'lodash';
 
+import { getWalletAddress } from '../../shared/persistentStorage';
+import { PATH_DEFAULT_WALLET_ADDRESS } from '../../shared/constants';
+import { updateWallet } from '../shared/actions/options';
 import uuid4 from '../shared/helpers/uuid4';
 
 import type {
@@ -9,13 +12,6 @@ import type {
   DeviceOS,
   JobResult
 } from '../shared/types/messages.types';
-
-import {
-  receiveJob,
-  submitJobSuccess,
-  minerSetId,
-  serverError
-} from '../shared/actions/socketClient';
 
 import {
   MINER_CHECK_IN,
@@ -67,4 +63,11 @@ export const createJobResultMsg: (result: Object) => JobResult = result => {
     type: SUBMIT_JOB,
     ...result
   };
+};
+
+export const refreshWalletAddress: (
+  dispatch: any
+) => Promise<any> = async dispatch => {
+  const wallet = await getWalletAddress();
+  dispatch(updateWallet(wallet || PATH_DEFAULT_WALLET_ADDRESS));
 };

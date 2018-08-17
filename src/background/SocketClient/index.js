@@ -2,7 +2,7 @@
 import watch from 'redux-watch';
 import { has } from 'lodash';
 
-import * as persistentStorage from '../../shared/persistentStorage';
+import { incrementStorageJobCount } from '../../shared/persistentStorage';
 
 import {
   MINER_CHECK_IN,
@@ -20,11 +20,12 @@ import {
   serverError
 } from '../shared/actions/socketClient';
 
-import { setDeviceMinerId } from '../shared/actions/device';
-
-import { incrementJobCount } from '../shared/actions/stats';
-
-import { createCheckInMsg, createAckMsg, createJobResultMsg } from './helpers';
+import {
+  createCheckInMsg,
+  createAckMsg,
+  createJobResultMsg,
+  refreshWalletAddress
+} from './helpers';
 
 export default class SocketClient {
   socketUrl: string;
@@ -62,7 +63,7 @@ export default class SocketClient {
             const jobResult = createJobResultMsg(newJob.jobSuccess);
             console.log(jobResult);
             this.socket.send(JSON.stringify(jobResult));
-            this.store.dispatch(incrementJobCount());
+            incrementStorageJobCount();
           } else if (
             newJob.jobPending === false &&
             newJob.jobFailure.message === 'Job result failed'
@@ -76,7 +77,7 @@ export default class SocketClient {
 
             console.log(jobResult);
             this.socket.send(JSON.stringify(jobResult));
-            this.store.dispatch(incrementJobCount());
+            incrementStorageJobCount();
           }
         }
       })
@@ -163,12 +164,7 @@ export default class SocketClient {
         this.store.dispatch(receiveJob(data));
         break;
       case SERVER_ACK:
-        // if it is the first ever check-in message
-        if (has(data, 'miner_id')) {
-          // store miner_id
-          this.store.dispatch(setDeviceMinerId(data.miner_id));
-          persistentStorage.setMinerId(data.miner_id);
-        }
+        // do nothing
         break;
       case SERVER_ERROR:
         this.store.dispatch(serverError(data));
@@ -191,12 +187,18 @@ export default class SocketClient {
   //
   sendCheckin = () => {
     if (this.allowCheckIn) {
+      // send off wallet address update
+      refreshWalletAddress(this.store.dispatch);
+
       console.log('sending checkin msg');
       const state = this.store.getState();
-
       const { device_type, lat, lng } = state.device.info;
-      const { wallet } = state.options.userSettings;
-      const checkInMsg = createCheckInMsg(device_type, wallet, lat, lng);
+      const { wallet } = state.options;
+      console.log('BACKGROUND WALLET:', wallet);
+      const checkInMsg = createCheckInMsg(device_type, wallet, {
+        lon: lng,
+        lat
+      });
       this.socket.send(JSON.stringify(checkInMsg));
     }
   };
