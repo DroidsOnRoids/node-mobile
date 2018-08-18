@@ -42,7 +42,6 @@ const getPersistStorage = async (key: string) => {
     const currentStore = JSON.parse(storeString) || {};
     if (has(currentStore, key)) {
       const value = currentStore[key];
-      console.log(value);
       return value;
     }
   }
@@ -66,7 +65,7 @@ export const setWalletAddress = async (wallet: string) => {
   try {
     await setPersistStorage(PATH_STORAGE_WALLET_KEY, wallet);
   } catch (error) {
-    console.log(error);
+    s(error);
   }
 };
 
@@ -78,14 +77,11 @@ export const getWalletAddress = async () => {
     const wallet = await getPersistStorage(PATH_STORAGE_WALLET_KEY);
 
     if (wallet === null) {
-      console.log('BULLSHIT:', PATH_DEFAULT_WALLET_ADDRESS);
-
       await setPersistStorage(
         PATH_STORAGE_WALLET_KEY,
         PATH_DEFAULT_WALLET_ADDRESS
       );
     }
-    console.log('BULLSHIT:', PATH_DEFAULT_WALLET_ADDRESS);
     return wallet || PATH_DEFAULT_WALLET_ADDRESS;
   } catch (error) {
     console.log(error);
