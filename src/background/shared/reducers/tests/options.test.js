@@ -22,13 +22,13 @@ describe('device reducer', () => {
       ...defaultState,
       options: {
         errorMessage: '',
-        userSettings: userSettingsData
+        wallet: 'walletAdressdsufgkjsdfbsdkjf'
       }
     };
 
     const successAction = {
-      type: actions.OPTIONS_SUCCESS,
-      data: userSettingsData
+      type: actions.OPTIONS_SET_WALLET,
+      wallet: 'walletAdressdsufgkjsdfbsdkjf'
     };
     expect(reducers({}, successAction)).toEqual(expectedState);
   });

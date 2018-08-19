@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { StyleSheet, View, ImageBackground, StatusBar } from 'react-native';
 
+import { getJobCount } from './src/shared/persistentStorage';
+import { updateJobCount } from './src/ui/shared/actions/stats';
+
 // Presentational Components
 import Banner from './src/ui/components/Banner';
 import Info from './src/ui/containers/Info';
@@ -27,9 +30,19 @@ export default class App extends Component<Props, State> {
     this.initStore();
   }
 
+  hydrateStore = async () => {
+    const jobCount = await getJobCount();
+    store.dispatch(updateJobCount(jobCount || '0'));
+  };
+
   initStore = async () => {
     store = await reduxStore();
     this.setState({ storeLoaded: true });
+
+    // enqueue setInterval to poll AsyncStorage and hydrate store
+    setInterval(() => {
+      this.hydrateStore();
+    }, 10000);
   };
 
   render() {

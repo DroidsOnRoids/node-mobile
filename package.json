@@ -42,7 +42,6 @@
     "lodash": "^4.17.10",
     "react": "16.3.1",
     "react-native": "~0.55.2",
-    "react-native-config": "^0.11.5",
     "react-native-tcp": "^3.3.0",
     "react-native-udp": "^2.3.1",
     "react-redux": "^5.0.7",
@@ -68,6 +67,7 @@
     "_stream_writable": "readable-stream/writable",
     "_stream_duplex": "readable-stream/duplex",
     "_stream_passthrough": "readable-stream/passthrough",
-    "stream": "stream-browserify"
+    "stream": "stream-browserify",
+    "url-parse": "^1.4.3"
   }
 }

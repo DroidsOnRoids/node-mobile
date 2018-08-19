@@ -11,7 +11,7 @@ export const JOB_SUCCESS = 'JOB_SUCCESS';
 export const JOB_FAILURE = 'JOB_FAILURE';
 
 // options
-export const OPTIONS_SUCCESS = 'OPTIONS_SUCCESS';
+export const OPTIONS_SET_WALLET = 'OPTIONS_SET_WALLET';
 export const OPTIONS_FAILURE = 'OPTIONS_FAILURE';
 
 // socket client state
