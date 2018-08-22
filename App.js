@@ -42,6 +42,7 @@ export default class App extends Component<Props, State> {
     // enqueue setInterval to poll AsyncStorage and hydrate store
     setInterval(() => {
       this.hydrateStore();
+      console.log('hydrated store');
     }, 10000);
   };
 

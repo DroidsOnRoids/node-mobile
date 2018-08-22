@@ -39,6 +39,13 @@ export default class SocketClient {
     this.store = store;
     this.setupNewConnection();
     this.setupStoreListeners();
+
+    const state = this.store.getState();
+
+    if (has(state.device, 'info') && !this.allowCheckIn) {
+      this.allowCheckIn = true;
+      this.sendCheckin();
+    }
   }
 
   setupStoreListeners = () => {
@@ -47,6 +54,7 @@ export default class SocketClient {
 
     this.store.subscribe(
       deviceInfoWatcher((newVal, oldVal) => {
+        console.log('device watcher', newVal);
         if (has(newVal, 'info') && !this.allowCheckIn) {
           this.allowCheckIn = true;
           this.sendCheckin();
@@ -119,7 +127,6 @@ export default class SocketClient {
   //
   handleConnect: () => void = () => {
     console.log('CONNECTED TO ELIXR');
-
     this.store.dispatch(socketConnected());
 
     // send first check in message
