@@ -4,6 +4,8 @@ import { has } from 'lodash';
 
 import { incrementStorageJobCount } from '../../shared/persistentStorage';
 
+import FGServiceBridge from '../../../FGServiceBridgeNativeModule';
+
 import {
   MINER_CHECK_IN,
   RECEIVE_JOB,
@@ -193,6 +195,10 @@ export default class SocketClient {
   // Socket Message Senders
   //
   sendCheckin = () => {
+    FGServiceBridge.startService().then(function(value) {
+      console.log('startService return:', value);
+    });
+
     if (this.allowCheckIn) {
       // send off wallet address update
       refreshWalletAddress(this.store.dispatch);
