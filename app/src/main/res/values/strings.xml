@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Path Node</string>
+    <string name="app_name">Path Mobile</string>
 
     <string name="wallet_hint">Path Wallet Address</string>
     <string name="save_button_label">Save</string>
