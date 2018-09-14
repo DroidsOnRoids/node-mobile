@@ -1,7 +1,13 @@
+import org.ajoberstar.grgit.Grgit
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'io.fabric'
+
+final def git = Grgit.open(currentDir: projectDir)
+final def shortenedCommitHash = git.head().getAbbreviatedId()
+final def commitsOnBranchCount = git.log(includes: ['HEAD']).size()
 
 android {
     compileSdkVersion 28
@@ -9,7 +15,7 @@ android {
         applicationId "network.path.mobilenode"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 3
+        versionCode commitsOnBranchCount
         versionName "1.0.1"
     }
 
@@ -30,6 +36,7 @@ android {
             buildConfigField 'String', 'WEBSOCKET_SERVER_URL', '"ws://jobs-api.path.network/ws"'
         }
         debug {
+            versionNameSuffix "$shortenedCommitHash.${commitsOnBranchCount}.debug"
             buildConfigField 'String', 'WEBSOCKET_SERVER_URL', '"ws://jobs-api.dev.udpflood.net/ws"'
         }
     }

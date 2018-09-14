@@ -23,17 +23,27 @@ class LastLocationProvider(context: Context) {
 
     private fun createFusedLocationProducer(): ReceiveChannel<Location?> {
         val channel = Channel<Location?>(1)
+        try {
+            offerLastLocation(channel)
+        } catch (e: SecurityException) {
+            Timber.v(e)
+            channel.offer(null)
+        }
+        return channel
+    }
+
+    @Throws(SecurityException::class)
+    private fun offerLastLocation(channel: Channel<Location?>) {
         with(fusedLocationProvider.lastLocation) {
             addOnSuccessListener { location: Location? ->
                 Timber.v("Last location: $location mocked: ${location?.isFromMockProvider}")
                 channel.offer(location)
             }
             addOnFailureListener {
-                Timber.v("Could not get location: $it")
+                Timber.v(it)
                 channel.offer(null)
             }
         }
-        return channel
     }
 
     private fun createFallbackLocationProducer() = produce<Location?>(capacity = 1) {
