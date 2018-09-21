@@ -11,6 +11,10 @@ final def git = Grgit.open(currentDir: projectDir)
 final def shortenedCommitHash = git.head().getAbbreviatedId()
 final def commitsOnBranchCount = git.log(includes: ['HEAD']).size()
 
+final def git = Grgit.open(currentDir: projectDir)
+final def shortenedCommitHash = git.head().getAbbreviatedId()
+final def commitsOnBranchCount = git.log(includes: ['HEAD']).size()
+
 android {
     compileSdkVersion 28
     defaultConfig {
